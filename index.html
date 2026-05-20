@@ -133,4 +133,80 @@
             margin-top: 15px;
             padding: 12px;
             background-color: #e0f2f1;
-            border: 1px dashed
+            border: 1px dashed var(--cor-primaria);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            word-break: break-all;
+            text-align: center;
+            display: none;
+        }
+        .resultado-link a {
+            color: #00796b;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper-celular">
+        <div class="detalhe-topo"></div>
+
+        <div class="conteudo">
+            <h1>Área do Vendedor</h1>
+            <p class="descricao">
+                Crie uma cobrança segura. O dinheiro do comprador ficará retido até que ele receba e teste o produto.
+            </p>
+
+            <form id="form-safepix" onsubmit="gerarLink(event)">
+                <div class="campo-grupo">
+                    <label for="produto">O que você está vendendo?</label>
+                    <input type="text" id="produto" placeholder="Ex: iPhone 12 Usado" required>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="valor">Valor (R$)</label>
+                    <input type="number" id="valor" step="0.01" placeholder="Ex: 2500,00" required>
+                </div>
+                
+                <div id="box-resultado" class="resultado-link">
+                    <span>Link criado com sucesso! <br></span>
+                    <a id="link-gerado" href="#" target="_blank"></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="area-acao">
+            <button type="submit" form="form-safepix" class="btn-gerar">Gerar Link SafePix</button>
+        </div>
+    </div>
+
+    <script>
+        function gerarLink(event) {
+            // Evita que a página recarregue ao submeter o formulário
+            event.preventDefault();
+
+            // Pega os valores digitados pelo usuário
+            const produto = document.getElementById('produto').value;
+            const valor = document.getElementById('valor').value;
+
+            // Formata o nome do produto para a URL (remove espaços e poe hifen)
+            const produtoUrl = encodeURIComponent(produto.toLowerCase().replace(/ /g, "-"));
+            
+            // Simula a criação de um link dinâmico da SPA
+            const linkFinal = `https://gabrielazevedosoares-ai.github.io/mvp-safepix/pagamento.html?item=${produtoUrl}&preco=${valor}`;
+
+            // Exibe a caixinha com o link na tela
+            const boxResultado = document.getElementById('box-resultado');
+            const linkElemento = document.getElementById('link-generated' || 'link-gerado');
+            
+            linkElemento.href = linkFinal;
+            linkElemento.innerText = linkFinal;
+            boxResultado.style.display = 'block';
+
+            // Alerta visual de sucesso para o usuário
+            alert(`Link gerado para: ${produto} por R$ ${valor}! Copie o link gerado na tela.`);
+        }
+    </script>
+</body>
+</html>
